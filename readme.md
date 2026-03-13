@@ -1,156 +1,180 @@
-# Accounting Software
+# My Accounting Project
 
-A **Windows Forms-based Accounting Software** built using a **5-layer architecture**.
-The system allows users to manage financial transactions, accounts, and records efficiently using **SQL Server** as the database and **Entity Framework (Database First approach)** for data access. ([GitHub][1])
+A **web-based Accounting Management System** built using **Django, Python, SQLite3, HTML, and CSS**.
+The system helps manage financial records such as **Sales, Purchases, Payments, Receipts, Accounts, Daybook, and Ledger** with a clean dashboard and graphical reports.
 
-This project demonstrates **clean architecture principles**, **Repository Pattern**, and **Unit of Work Pattern** for scalable and maintainable software development.
-
----
-
-# Project Overview
-
-This application is designed to help businesses or individuals manage their accounting operations such as:
-
-* Managing accounts
-* Recording financial transactions
-* Organizing financial data
-* Generating reports
-
-The system follows a **layered architecture** to maintain separation of concerns and improve maintainability.
+This project also supports **automatic PDF generation for vouchers**, making it useful for basic business accounting operations.
 
 ---
 
-# Architecture
+# Project Features
 
-The project is structured using **5-layer architecture**:
+* Dashboard with financial summary
+* Graphical representation of accounting data
+* Manage Sales transactions
+* Manage Purchase transactions
+* Record Receipts
+* Record Payments
+* Maintain Accounts
+* Daybook for daily transactions
+* Ledger for account-wise reports
+* Generate **PDF vouchers automatically**
+* Clean sidebar navigation UI
+* Database integration with SQLite
 
-### 1. Presentation Layer
+---
 
-* Handles the **User Interface**
-* Built using **Windows Forms**
-* Allows users to interact with the system
+# Dashboard
 
-### 2. Application Layer
+The dashboard provides:
 
-* Contains **business logic**
-* Manages accounting operations and workflows
+* Total Sales
+* Total Purchases
+* Total Receipts
+* Total Payments
+* Monthly graph visualization of accounting activity
 
-### 3. Domain Layer
-
-* Defines **core entities**
-* Example entities:
-
-  * Account
-  * Transaction
-  * Ledger
-
-### 4. Data Access Layer
-
-* Responsible for **database communication**
-* Uses **Entity Framework (Database First)**
-
-### 5. Utility / Infrastructure Layer
-
-* Contains helper utilities
-* Handles configuration and common services
+This helps users quickly understand business financial performance.
 
 ---
 
 # Technologies Used
 
-* **C#**
-* **.NET Framework**
-* **Windows Forms**
-* **SQL Server**
-* **Entity Framework**
-* **Repository Pattern**
-* **Unit of Work Pattern**
+Backend
+
+* Python
+* Django
+
+Frontend
+
+* HTML
+* CSS
+* JavaScript
+
+Database
+
+* SQLite3
+
+Other Tools
+
+* Django Template Engine
+* Chart/Graph visualization library
+* PDF generation library (for voucher export)
 
 ---
 
-# Key Features
+# Project Modules
 
-* User-friendly desktop interface
-* Manage financial accounts
-* Record and track transactions
-* Structured layered architecture
-* Clean separation between business logic and data access
-* Scalable and maintainable design
+### Dashboard
 
----
+Displays financial summary and graph visualization.
 
-# Design Patterns
+### Sales
 
-### Repository Pattern
+Used to record and manage all sales transactions.
 
-Provides an abstraction layer for database operations so that business logic does not directly interact with the database.
+### Purchase
 
-### Unit of Work Pattern
+Used to record purchase transactions.
 
-Ensures that multiple operations are executed within a **single transaction**, maintaining data integrity.
+### Payment
+
+Records payments made to suppliers or other parties.
+
+### Receipt
+
+Records incoming payments from customers.
+
+### Daybook
+
+Shows all transactions recorded day by day.
+
+### Ledger
+
+Displays account-wise transaction history.
+
+### Accounts
+
+Used to manage account names and details.
 
 ---
 
 # Project Structure
 
 ```
-Accounting_Software
+MY_ACCOUNTING_PROJECT
 │
-├── Accounting                # Main Windows Forms UI
-├── Accounting_App            # Application layer (Business Logic)
-├── Accounting_Business       # Domain entities and models
-├── Accounting_DataLayer      # Database operations
-├── Accounting_Utility        # Helper classes and utilities
-├── Accounting_ViewModel      # ViewModels for UI
-├── packages                  # External dependencies
-└── Accounting.sln            # Visual Studio Solution File
+├── accounts
+├── dashboard
+├── daybook
+├── ledger
+├── payments
+├── purchase
+├── receipts
+├── sales
+│
+├── my_accounting_project   # Main Django Project Folder
+│
+├── db.sqlite3              # Database
+├── manage.py               # Django Project Manager
+└── readme.md
 ```
 
 ---
 
-# Installation & Setup
+# Installation Guide
 
-### 1 Clone the Repository
+### 1 Clone Repository
 
 ```bash
-git clone https://github.com/prateek-gith/Accounting_Software.git
+git clone https://github.com/prateek-gith/MY_ACCOUNTING_PROJECT.git
 ```
 
 ---
 
-### 2 Open Project
+### 2 Move into Project Folder
 
-Open the solution file in **Visual Studio**
-
-```
-Accounting.sln
+```bash
+cd MY_ACCOUNTING_PROJECT
 ```
 
 ---
 
-### 3 Configure Database
+### 3 Install Dependencies
 
-1. Install **SQL Server**
-2. Create a database
-3. Update the **connection string** in the configuration file.
+```bash
+pip install django
+```
+
+(Install additional libraries if required)
 
 ---
 
-### 4 Run the Application
+### 4 Run Migrations
 
-Build and run the project using **Visual Studio**.
+```bash
+python manage.py migrate
+```
+
+---
+
+### 5 Start Server
+
+```bash
+python manage.py runserver
+```
 
 ---
 
 # Future Improvements
 
-Possible improvements for the project:
-
-* Dashboard with financial analytics
-* Export reports to **Excel / PDF**
-* Authentication & role-based access
+* User authentication system
+* Multi-user accounting
+* Excel export for reports
+* Profit & Loss report
+* GST report support
+* Advanced financial analytics
 * Cloud database support
-* API integration
 
 ---
 
@@ -158,5 +182,20 @@ Possible improvements for the project:
 
 **Prateek Yadav**
 
-Python & Web Developer
-Interested in **Automation, Backend Development, and Data Systems**
+Python Developer | Django Developer
+
+Skills:
+
+* Python
+* Django
+* Web Development
+* Automation
+* Data Processing
+
+---
+
+# License
+
+This project is open-source and available for learning and educational purposes.
+
+---
