@@ -1,0 +1,78 @@
+{% extends 'purchase/basic_layout.html' %}
+
+
+  {% block style %}
+
+  <!-- <style>
+    .a_button{
+      text-decoration: none;
+      border-radius: 5%;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      color: white;
+    }
+  </style> -->
+
+  {% endblock style %}
+
+  {% block body %}
+
+  <div class="main">
+
+    <!-- Add Sale Button -->
+    <div class="add-sale">
+      <a href="{% url 'Account_Add_Party' %}"><button > Add Party Account</button></a>
+    </div>
+
+    <!-- Recent Sales -->
+    <div class="recent-sales">
+      <h2>All Sales</h2>
+      <table class="sale-table">
+        <thead>
+          <tr>
+            <th>Paty ID</th>
+            <th>Party Name </th>
+            <th>Party GSTIN</th>
+            <th>Party Address</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for Party in Party_Data %}
+          <tr>
+            <td>{{ Party.Sales_Co_ID }}</td>
+            <td>{{ Party.Sales_Con_GSTIN }}</td>
+            <td>{{Party.Sales_Con_Name}}</td>
+            <td>{{Party.Sales_Con_Address}}</td>
+            <td><a href="{% url 'Edit_Account' Party.Sales_Co_ID %}" class="a_button">Update</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+{% endblock body %}
+
+
+{% block javaScript%}
+  <!-- <script>
+
+    sale_button = document.getElementById('sala_detail');
+
+    sale_button.addEventListener('click',(event)=>{
+        // console.log(event.target.id);
+        if (event.target.id){
+          window.location.href = `./all_sales/${event.target.id}`
+        }
+      
+    })
+
+  </script> -->
+{% endblock javaScript%}
+

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ Title }}</title>
+  <!-- <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📘</text></svg>"> -->
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3159/3159310.png" type="image/png">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% block style %}
+
+    {% endblock style %}
+</head>
+<body>
+  <div class="sidebar">
+    <button class="toggle-btn">🏠</button>
+    <div class="menu">
+      <a href="{% url 'Dashboard_Index' %}"><button>📊 <span>Dashboard</span></button></a>
+      <a href="{% url 'Sale_Index' %}"><button>📈 <span>Sale</span></button></a>
+      <a href="{% url 'Purchase_Index' %}"><button>🛒 <span>Purchase</span></button> </a>
+      <a href="{% url 'Payment_Index' %}"><button>💸 <span>Payment</span></button></a>
+      <a href="{% url 'Receipt_Index' %}"><button>💰 <span>Receipt</span></button></a>
+      <a href="{% url 'DayBook_Index' %}"><button>📖 <span>Daybook</span></button></a>
+      <a href="{% url 'Ledger_Index' %}"><button>📂 <span>Ledger</span></button></a>
+      <a href="{% url 'Account_Index' %}"><button>📒 <span>Accounts</span></button></a>
+    </div>
+  </div>
+
+
+{% block body %}
+
+{% endblock body %}
+
+
+{% block javaScript%}
+
+{% endblock javaScript%}
+
+</body>
+</html>

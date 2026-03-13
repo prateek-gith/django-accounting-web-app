@@ -1,0 +1,49 @@
+{% extends './basic_layout.html' %}
+
+
+  {% block style %}
+
+  {% endblock style %}
+
+  {% block body %}
+
+  <div class="main">
+    <!-- Recent Sales -->
+    <div class="recent-sales">
+      <h2>Purchase Register {{ Type }} </h2>
+      <table class="sale-table">
+        <thead>
+          <tr>
+            <th>V No.</th>
+            <th>Date</th>
+            <th>Party</th>
+            <th>Amount</th>
+            <th>GST</th>
+            <th>Total Amount</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for purchase in All_Purchase %}
+          <tr>
+            <td>{{purchase.Purchase_V_No }}</td>
+            <td>{{purchase.Purchase_Date }}</td>
+            <td>{{purchase.Purchase_Party.Sales_Con_Name}}</td>
+            <td>₹{{purchase.Purchase_item_To_Value}}</td>
+            <td>₹{{purchase.Purchase_GST_Amount}}</td>
+            <td>₹{{purchase.Purchase_To_Amount}}</td>
+            <td><a href="/purchase/edit/{{purchase.Purchase_V_No }}">Update</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+{% endblock body %}
+
+
+{% block javaScript%}
+
+{% endblock javaScript%}

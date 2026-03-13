@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Party Ledger</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+            box-shadow: 0 0 5px #ccc;
+        }
+        th, td {
+            border: 1px solid #aaa;
+            padding: 8px 10px;
+            text-align: center;
+        }
+        th {
+            background: #f4f4f4;
+        }
+        select {
+            padding: 6px;
+            margin: 10px;
+        }
+        .container {
+            text-align: center;
+        }
+        .credit {
+            color: green;
+            font-weight: bold;
+        }
+        .debit {
+            color: red;
+            font-weight: bold;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Party Ledger</h2>
+
+        <form method="get">
+            <label>Select Party:</label>
+            <select name="party_id" onchange="this.form.submit()">
+                <option value="">-- Select Party --</option>
+                {% for p in parties %}
+                    <option value="{{ p.pk }}" {% if party and party.pk == p.pk %}selected{% endif %}>
+                        {{ p.Sales_Con_Name }} ({{ p.Sales_Con_GSTIN }})
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+
+        {% if ledger_data %}
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Voucher No</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Running Balance</th>
+            </tr>
+            {% for entry in ledger_data %}
+            <tr>
+                <td>{{ entry.date_field|date:"d-m-Y" }}</td>
+                <td>{{ entry.v_no }}</td>
+                <td>{{ entry.entry_type }}</td>
+                <td class="{% if entry.entry_type == 'Sale' %}credit{% else %}debit{% endif %}">
+                    {{ entry.amount }}
+                </td>
+                <td>
+                    {% if entry.balance >= 0 %}
+                        <span class="credit">{{ entry.balance|floatformat:2 }}</span>
+                    {% else %}
+                        <span class="debit">{{ entry.balance|floatformat:2 }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% elif party %}
+            <p>No transactions found for this party.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

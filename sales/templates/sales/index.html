@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales detail</title>
+</head>
+<body>
+    <h1>
+        Sales Detail Here
+    </h1>
+    
+    {% for sale in Sales_Data %}
+
+        <h2>{{ sale.Sales_V_No }}</h2>
+        <h2>{{ sale.Sales_Party_Name }}</h2>
+        <h2>{{ sale.Sale_GSTIN }}</h2>
+
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% extends 'purchase/basic_layout.html' %}
+
+
+  {% block style %}
+
+  {% endblock style %}
+
+  {% block body %}
+
+  <div class="main">
+    <!-- Sale Summary Section -->
+
+    <!-- Recent Sales -->
+    <div class="recent-sales">
+      <h2>Payments Register {{ Type }} </h2>
+      <table class="sale-table">
+        <thead>
+          <tr>
+            <th>V No.</th>
+            <th>Date</th>
+            <th>Party</th>
+            <th>Method</th>
+            <th>Amount</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for payments in All_Payments %}
+          <tr>
+            <td>{{ payments.Pay_V_No }}</td>
+            <td>{{payments.Pay_Date|date:'Y-m-d' }}</td>
+            <td>{{payments.Pay_Party_Data.Sales_Con_Name}}</td>
+            <td>{{payments.Pay_Method}}</td>
+            <td>₹{{payments.Pay_Amount}}</td>
+            <td><a href="/payment/edit_voucher/{{ payments.Pay_V_No }}">Update </a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock body %}
+
+
+{% block javaScript%}
+
+{% endblock javaScript%}
+

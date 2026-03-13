@@ -1,0 +1,232 @@
+{% extends 'purchase/basic_layout.html' %}
+
+{% block style %}
+<style>
+    /* ====== Base Styles ====== */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f4f6f8;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    /* ====== Container ====== */
+    .container {
+        width: 90%;
+        max-width: 1100px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 8px;
+        padding: 25px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* ====== Header Section ====== */
+    .daybook-header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .daybook-header h3 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #222;
+    }
+
+    /* ====== Filter Form ====== */
+    .filter-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .filter-form input[type="date"] {
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 0.95rem;
+    }
+
+    .filter-form button {
+        padding: 8px 14px;
+        background-color: #0077ff;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .filter-form button:hover {
+        background-color: #005fcc;
+    }
+
+    /* ====== Table Styles ====== */
+    .table-wrapper {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 700px;
+    }
+
+    thead {
+        background-color: #2d3e50;
+        color: #fff;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 12px 10px;
+        border: 1px solid #ddd;
+        vertical-align: middle;
+    }
+
+    th {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tbody tr:hover {
+        background-color: #eef5ff;
+    }
+
+    td.text-end {
+        text-align: right;
+    }
+
+    tfoot {
+        font-weight: bold;
+        background-color: #f1f1f1;
+    }
+
+    /* ====== No Data Message ====== */
+    .no-data {
+        text-align: center;
+        color: #888;
+        padding: 20px;
+        font-size: 0.95rem;
+    }
+
+    /* ====== Responsive Design ====== */
+    @media (max-width: 768px) {
+        .daybook-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        th, td {
+            font-size: 0.9rem;
+            padding: 8px;
+        }
+
+        .filter-form {
+            width: 100%;
+        }
+
+        .filter-form input[type="date"],
+        .filter-form button {
+            flex: 1;
+            width: 100%;
+        }
+
+        table {
+            min-width: 100%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .daybook-header h3 {
+            font-size: 1.4rem;
+        }
+        th, td {
+            font-size: 0.85rem;
+        }
+    }
+</style>
+{% endblock style %}
+
+
+{% block body %}
+<div class="container">
+    <div class="daybook-header">
+        <h3>Daybook</h3>
+        <form method="get" class="filter-form">
+            <input type="date" name="date">
+            <button type="submit">Filter</button>
+        </form>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Voucher No.</th>
+                    <th>Particulars</th>
+                    <th class="text-end">Debit (₹)</th>
+                    <th class="text-end">Credit (₹)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if Day_Data %}
+                    {% for txn in Day_Data %}
+                    <tr>
+                        <td>{{ txn.date_field|date:"d M Y" }}</td>
+                        <td>{{ txn.v_no }}</td>
+                        <td>{{ txn.entry_type }}</td>
+                        {% if txn.entry_type == 'Sale' or txn.entry_type == 'Payment' %}
+                            <td class="text-end">{{ txn.amount|floatformat:2 }}</td>
+                        {% else %}
+                            <td class="text-end">--</td>
+                        {% endif %}
+
+                        {% if txn.entry_type == 'Purchase' or txn.entry_type == 'Receipts' %}
+                            <td class="text-end">{{ txn.amount|floatformat:2 }}</td>
+                        {% else %}
+                            <td class="text-end">--</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="no-data">No transactions found for this date.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-end">Total:</td>
+                    <td class="text-end">{{ Total_Debit|floatformat:2 }}</td>
+                    <td class="text-end">{{ Total_Credit|floatformat:2 }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+{% endblock body %}
+
+{% block javaScript %}
+<!-- No external JS needed -->
+{% endblock javaScript %}

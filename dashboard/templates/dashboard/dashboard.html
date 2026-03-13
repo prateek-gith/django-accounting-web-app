@@ -1,0 +1,108 @@
+{% extends 'purchase/basic_layout.html' %}
+
+
+  {% block style %}
+
+  {% endblock style %}
+
+  {% block body %}
+
+  <div class="main">
+    <!-- Sale Summary Section -->
+    <div class="sale-summary" id="dashboard_detail">
+      <div class="card">
+        <h3>Total Sale</h3>
+        <p>₹ {{Total_Sale}}</p>
+        <button id="sales" >Show Detail</button>
+      </div>
+      <div class="card">
+        <h3>Total Purchase</h3>
+        <p>₹ {{Total_Purchase}}  </p>
+        <button id="purchase">Show Detail</button>
+      </div>
+      <div class="card">
+        <h3>Total Receipt</h3>
+        <p>₹ {{ Total_Receipt }} </p>
+        <button id="receipts">Show Detail</button>
+      </div>
+      <div class="card">
+        <h3>Total Payment</h3>
+        <p>₹ {{ Total_Payment }}</p>
+        <button id="payment">Show Detail</button>
+      </div>
+      
+      
+    </div>
+
+    <!-- Recent Sales -->
+    <div class="recent-sales">
+      <h2>Dashboard</h2>
+      <canvas id="lineChart" width="400" height="100"></canvas>
+      
+    </div>
+  </div>
+
+
+
+
+
+{% endblock body %}
+
+
+{% block javaScript%}
+  <script>
+
+    sale_button = document.getElementById('dashboard_detail');
+
+    sale_button.addEventListener('click',(event)=>{
+        // console.log(event.target.id);
+        if (event.target.id){
+          window.location.href = `${event.target.id}/`
+        }
+      
+    })
+
+  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+    const ctx = document.getElementById('lineChart');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: {{ months|safe }},
+        datasets: [
+          {
+            label: 'Sale',
+            data: {{ sale|safe }},
+            borderWidth: 2
+          },
+          {
+            label: 'Purchase',
+            data: {{ purchase|safe }},
+            borderWidth: 2
+          },
+          {
+            label: 'Receipt',
+            data: {{ receipt|safe }},
+            borderWidth: 2
+          },
+          {
+            label: 'Payment',
+            data: {{ payment|safe }},
+            borderWidth: 2
+          }
+        ]
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+</script>
+{% endblock javaScript%}
+

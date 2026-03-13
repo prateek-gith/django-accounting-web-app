@@ -1,0 +1,222 @@
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #fddb92, #d1fdff);
+      color: #333;
+      transition: all 0.3s ease;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 20%;
+      min-width: 200px;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.4s ease;
+      overflow: hidden;
+
+      /* ✅ Make sidebar fixed and non-scrollable */
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;  /* Full viewport height */
+    }
+
+    .toggle-btn {
+      cursor: pointer;
+      background: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #fca17d;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    a{
+      text-decoration: none;
+    }
+
+    .menu button{
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      padding: 12px;
+      color: #333;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .menu button:hover {
+      background: rgba(255, 255, 255, 0.5);
+      transform: translateX(5px);
+    }
+
+    .p-sticky{
+      position: sticky;
+      top: 0;
+    }
+    /* Main Content */
+    .main {
+      width: 80%;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      overflow-y: auto; /* Allow main content to scroll */
+      height: 100vh; /* So scroll works only here */
+      margin-left: 20%; /* Push content beside sidebar */
+    }
+
+    .container{
+      margin-left: 25% !important; /* Push content beside sidebar */
+
+
+    }
+    .sale-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      height: 30%;
+      animation: fadeIn 1s ease;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .card button {
+      margin-top: 15px;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 8px;
+      background: #fff;
+      color: #3b82f6;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .card button:hover {
+      background: #3b82f6;
+      color: #fff;
+    }
+
+    /* Add Sale Button */
+    .add-sale {
+      text-align: right;
+    }
+
+    .add-sale button{
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #f093fb, #f5576c);
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .add-sale button:hover {
+      background: linear-gradient(135deg, #f5576c, #f093fb);
+    }
+
+    /* Recent Sales Section */
+    .recent-sales {
+      flex: 1;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      animation: fadeUp 1s ease;
+    }
+
+    .recent-sales h2 {
+      margin-bottom: 15px;
+    }
+
+    .sale-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .sale-table th, .sale-table td {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .sale-table th {
+      background: #f093fb;
+      color: #fff;
+    }
+
+    .sale-table tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar, .main {
+        width: 100%;
+      }
+    }
+    

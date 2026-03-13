@@ -1,0 +1,49 @@
+{% extends 'purchase/basic_layout.html' %}
+
+
+  {% block style %}
+
+  {% endblock style %}
+
+  {% block body %}
+
+  <div class="main">
+    <!-- Sale Summary Section -->
+
+    <!-- Recent Sales -->
+    <div class="recent-sales">
+      <h2>Sale Register {{ Type }} </h2>
+      <table class="sale-table">
+        <thead>
+          <tr>
+            <th>V No.</th>
+            <th>Date</th>
+            <th>Party</th>
+            <th>Method</th>
+            <th>Amount</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for receipts in All_Receipts %}
+          <tr>
+            <td>{{ receipts.Rcpt_V_No }}</td>
+            <td>{{receipts.Rcpt_Date|date:'Y-m-d' }}</td>
+            <td>{{receipts.Rcpt_Party_Data.Sales_Con_Name}}</td>
+            <td>{{receipts.Rcpt_Method}}</td>
+            <td>₹{{receipts.Rcpt_Amount}}</td>
+            <td><a href="/receipts/edit_voucher/{{ receipts.Rcpt_V_No }}">Update</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock body %}
+
+
+{% block javaScript%}
+
+{% endblock javaScript%}
+

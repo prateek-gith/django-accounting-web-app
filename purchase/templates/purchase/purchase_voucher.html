@@ -1,0 +1,238 @@
+{% extends './basic_layout.html' %}
+
+  {% block style %}
+
+  <style>
+
+    /* Main Content */
+    .main {
+      width: 80%;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-section {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .form-group {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .form-group input, .form-group select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      border-color: #3b82f6;
+    }
+
+    .totals {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #f6d365, #fda085);
+      padding: 15px;
+      border-radius: 12px;
+      color: #333;
+    }
+
+    .save-btn {
+      align-self: flex-end;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #84fab0, #8fd3f4);
+      color: #333;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .save-btn:hover {
+      background: linear-gradient(135deg, #8fd3f4, #84fab0);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar, .main {
+        width: 100%;
+      }
+    }
+  </style>
+
+  {% endblock style %}
+
+  {% block body %}
+
+  <div class="main">
+    <h2>New Sale Entry</h2>
+    <form id="saleForm" action="{% url 'Add_Purchase' %}" method="post"> {% csrf_token %}
+      <!-- Party Details (Top 30%) -->
+      <div class="form-section">
+        <div class="form-group">
+          <label>Party Name</label>
+          <input type="text" required id="party_name">
+        </div>
+        <div class="form-group">
+          <label for="Party_GSTIN">GSTIN</label>
+          <select id="Party_GSTIN" name="Party_GSTIN">
+            {% for gistin in Party_Data %}
+            <option value="{{ gistin.Sales_Con_GSTIN }}" >{{ gistin.Sales_Con_GSTIN }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Address</label>
+          <input type="text" id="party_address">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="text">
+        </div>
+        <div class="form-group">
+          <label>Contact Person</label>
+          <input type="text">
+        </div>
+        <div class="form-group">
+          <label>Pin Code</label>
+          <input type="text" id="party_pincode">
+        </div>
+      </div>
+
+      <!-- Sale Details (Remaining Section) -->
+      <div class="form-section">
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="saleDate">
+        </div>
+        <div class="form-group">
+          <label>Item Name</label>
+          <input type="text" name="Item_Name">
+        </div>
+        <div class="form-group">
+          <label>Quantity</label>
+          <input type="number" id="quantity" value="1" name="Quantity">
+        </div>
+        <div class="form-group">
+          <label>UOM</label>
+          <input type="text" name="UOM" value="Pcs">
+        </div>
+        <div class="form-group">
+          <label>Rate</label>
+          <input type="number" id="rate" value="0" name="Rate">
+        </div>
+        <div class="form-group">
+          <label>Total Value</label>
+          <input type="text" id="totalValue" readonly name="To_Value">
+        </div>
+      </div>
+
+      <!-- GST Section -->
+      <div class="form-section">
+        <div class="form-group">
+          <label>GST %</label>
+          <select id="gstPercent" name="GST_Per">
+            <option value="5">5%</option>
+            <option value="12">12%</option>
+            <option value="18">18%</option>
+            <option value="28">28%</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>GST Amount</label>
+          <input type="text" id="gstAmount" readonly name="GST_Amount">
+        </div>
+        <div class="form-group">
+          <label>Sub Total</label>
+          <input type="text" id="subTotal" readonly name="Sub_Total">
+        </div>
+      </div>
+
+      <!-- Save Button -->
+      <button type="submit" class="save-btn">Save</button>
+    </form>
+  </div>
+
+{% endblock body %}
+
+
+{% block javaScript%}
+
+  <script>
+    // Set current date automatically
+    document.getElementById('saleDate').valueAsDate = new Date();
+
+    function calculateTotals() {
+      let qty = parseFloat(document.getElementById('quantity').value) || 0;
+      let rate = parseFloat(document.getElementById('rate').value) || 0;
+      let total = qty * rate;
+      document.getElementById('totalValue').value = total.toFixed(2);
+
+      let gstPercent = parseFloat(document.getElementById('gstPercent').value);
+      let gstAmount = (total * gstPercent) / 100;
+      let subTotal = total + gstAmount;
+
+      document.getElementById('gstAmount').value = gstAmount.toFixed(2);
+      document.getElementById('subTotal').value = subTotal.toFixed(2);
+    }
+
+    document.getElementById('quantity').addEventListener('input', calculateTotals);
+    document.getElementById('rate').addEventListener('input', calculateTotals);
+    document.getElementById('gstPercent').addEventListener('change', calculateTotals);
+
+    // Initial calculation
+    calculateTotals();
+  </script>
+
+<script>
+    document.getElementById('Party_GSTIN').addEventListener('change', function() {
+      const gstin = this.value;
+      if (gstin) {
+        fetch(`../get_party_details/${gstin}`)
+          .then(response => response.json())
+          .then(data => {
+            console.log(data.name)
+            if (!data.error) {
+              document.getElementById('party_name').value = data.name;
+              document.getElementById('party_address').value = data.address;
+              document.getElementById('party_pincode').value = data.pincode;
+            } else {
+              alert("Party not found!");
+            }
+          });
+      }
+    });
+</script>
+
+
+{% endblock javaScript%}

@@ -1,0 +1,87 @@
+{% extends 'purchase/basic_layout.html' %}
+
+
+  {% block style %}
+
+  {% endblock style %}
+
+  {% block body %}
+
+  <div class="main">
+    <!-- Sale Summary Section -->
+    <div class="sale-summary" id="sala_detail">
+      <div class="card">
+        <h3>Today Receipt</h3>
+        <p>₹ {{Todays_Receipt}}  </p>
+        <button id="today_receipts">Show Detail</button>
+      </div>
+      <div class="card">
+        <h3>This Month Receipt</h3>
+        <p>₹ {{ This_Month_Receipt }} </p>
+        <button id="this_receipts">Show Detail</button>
+      </div>
+      <div class="card">
+        <h3>Previous Month Receipt</h3>
+        <p>₹ {{ Pre_Months_Receipts }}</p>
+        <button id="pre_receipts">Show Detail</button>
+      </div>
+      <div class="card">
+        <h3>Total Receipt</h3>
+        <p>₹ {{Total_Receipt}}</p>
+        <button id="total_receipts" >Show Detail</button>
+      </div>
+    </div>
+
+    <!-- Add Sale Button -->
+    <div class="add-sale">
+      <a href="{% url 'Add_Receipts_Voucher' %}"><button > Add Receipt Voucher</button></a>
+    </div>
+
+    <!-- Recent Sales -->
+    <div class="recent-sales">
+      <h2>Recent SReceipt</h2>
+      <table class="sale-table">
+        <thead>
+          <tr>
+            <th>V No.</th>
+            <th>Date</th>
+            <th>Party</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for voucher in All_Receipt_Voucher %}
+          <tr>
+            <td>{{ voucher.Rcpt_V_No }}</td>
+            <td>{{ voucher.Rcpt_Date|date:'Y-m-d' }}</td>
+            <td>{{voucher.Rcpt_Party_Data.Sales_Con_Name}}</td>
+            <td>₹{{voucher.Rcpt_Amount}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+{% endblock body %}
+
+
+{% block javaScript%}
+  <script>
+
+    sale_button = document.getElementById('sala_detail');
+
+    sale_button.addEventListener('click',(event)=>{
+        // console.log(event.target.id);
+        if (event.target.id){
+          window.location.href = `./all_receipts/${event.target.id}`
+        }
+      
+    })
+
+  </script>
+{% endblock javaScript%}
+
