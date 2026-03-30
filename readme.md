@@ -122,35 +122,57 @@ MY_ACCOUNTING_PROJECT
 
 ---
 
-# Installation Guide
+# Installation & Setup
 
-### 1 Clone Repository
+### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/prateek-gith/MY_ACCOUNTING_PROJECT.git
+git clone https://github.com/prateek-gith/django-accounting-web-app.git
 ```
 
 ---
 
-### 2 Move into Project Folder
+### 2️⃣ Move into Project Folder
 
 ```bash
-cd MY_ACCOUNTING_PROJECT
+cd django-accounting-web-app
 ```
 
 ---
 
-### 3 Install Dependencies
+### 3️⃣ Create Virtual Environment
 
 ```bash
-pip install django
+python -m venv venv
 ```
-
-(Install additional libraries if required)
 
 ---
 
-### 4 Run Migrations
+### 4️⃣ Activate Virtual Environment
+
+#### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+#### Mac/Linux
+
+```bash
+source venv/bin/activate
+```
+
+---
+
+### 5️⃣ Install Requirements
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### 6️⃣ Apply Migrations
 
 ```bash
 python manage.py migrate
@@ -158,12 +180,19 @@ python manage.py migrate
 
 ---
 
-### 5 Start Server
+### 7️⃣ Run Server
 
 ```bash
 python manage.py runserver
 ```
 
+---
+
+### 8️⃣ Open in Browser
+
+```
+http://127.0.0.1:8000/
+```
 ---
 
 # Future Improvements
